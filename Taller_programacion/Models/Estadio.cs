@@ -6,13 +6,13 @@ namespace Taller_programacion.Models
     {
         [Key]
         public int IdEstadio { get; set; }
-
+        [Required]
         [MaxLength(100)]
         public string Dirección { get; set; }
-
-        [MaxLength(100)]
+        [Required]
+        [MaxLength(50)]
         public string Ciudad {  get; set; }
-
+        [Required]
         [MaxLength(100)]
         public int Capacidad { get; set; }
         

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Taller_programacion.Models
 {
@@ -14,14 +15,15 @@ namespace Taller_programacion.Models
         public string Ciudad { get; set; }
 
         [MaxLength(100)]
+        [Range(0, 50)]
         public string Titulos { get; set; }
-       
+        [NotNull]
 
         public Boolean AceptaExtranjero { get; set; }
 
         public Estadio? Estadio { get; set; }
 
-        [ForeignKey(nameof(Estadio))]
+        [ForeignKey("Estadio")]
         public int IdEstadio { get; set; }
         
 
