@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Taller_programacion.Models
 {
@@ -9,17 +10,21 @@ namespace Taller_programacion.Models
         public int IdJugador { get; set; }
 
         [MaxLength(100)]
-        public String Nombre { get; set; }
+        [Required]
+        public string Nombre { get; set; }
+        [NotNull]
 
         [MaxLength(100)]
-        public String Posición { get; set; }
+        public string Posición { get; set; }
 
         [MaxLength(100)]
-        public String Edad { get; set; }      
+        [Range(0, 50)]
+        [NotNull]
+        public string Edad { get; set; }      
 
         public Equipo? Equipo { get; set; }
 
-        [ForeignKey(nameof(Equipo))]
+        [ForeignKey("Equipo")]
         public int IdEquipo { get; set; }
 
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Taller_programacion.Models
 {
@@ -7,6 +8,8 @@ namespace Taller_programacion.Models
         [Key]
         public int IdEstadio { get; set; }
         [Required]
+        public string Nombre { get; set; }
+        [Required]
         [MaxLength(100)]
         public string Dirección { get; set; }
         [Required]
@@ -14,7 +17,8 @@ namespace Taller_programacion.Models
         public string Ciudad {  get; set; }
         [Required]
         [MaxLength(100)]
-        public int Capacidad { get; set; }
+        [NotNull]
+        public string? Capacidad { get; set; }
         
 
 

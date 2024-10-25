@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Taller_programacion.Models.Jugador>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="color:olive">Jugadores</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-danger">Create New</a>
+
+
+</p>
+<form method="get">
+    <div class="form-group">
+        <label for="equipoId">Filtrar por equipo</label>
+        <select name="equipoId" class="form-control">
+            <option value="">Todos los equipos</option>
+            @foreach (var equipo in ViewBag.Equipos)
+            {
+                <option value="@equipo.Value">@equipo.Text</option>
+            }
+        </select>
+        </br>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+</br>
+<table class="table" style="background-color:lightsalmon ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posición)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Posición)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipo.Nombre)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.IdJugador">Edit</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.IdJugador">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdJugador">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

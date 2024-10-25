@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Taller_programacion.Models.Estadio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1 style="color:darkorange">Estadios</h1>
+
+<table class="table" style="background-color:wheat">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dirección)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ciudad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacidad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dirección)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ciudad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacidad)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.IdEstadio">Edit</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.IdEstadio">Details</a> |
+                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdEstadio">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

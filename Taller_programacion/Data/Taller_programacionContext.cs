@@ -15,5 +15,7 @@ namespace Taller_programacion.Data
         }
 
         public DbSet<Taller_programacion.Models.Equipo> Equipo { get; set; } = default!;
+        public DbSet<Taller_programacion.Models.Estadio> Estadio { get; set; } = default!;
+        public DbSet<Taller_programacion.Models.Jugador> Jugador { get; set; } = default!;
     }
 }

@@ -10,23 +10,22 @@ using Taller_programacion.Models;
 
 namespace Taller_programacion.Controllers
 {
-    public class EquipoesController : Controller
+    public class EstadioController : Controller
     {
         private readonly Taller_programacionContext _context;
 
-        public EquipoesController(Taller_programacionContext context)
+        public EstadioController(Taller_programacionContext context)
         {
             _context = context;
         }
 
-        // GET: Equipoes
+        // GET: Estadio
         public async Task<IActionResult> Index()
         {
-            var taller_programacionContext = _context.Equipo.Include(e => e.Estadio);
-            return View(await taller_programacionContext.ToListAsync());
+            return View(await _context.Estadio.ToListAsync());
         }
 
-        // GET: Equipoes/Details/5
+        // GET: Estadio/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace Taller_programacion.Controllers
                 return NotFound();
             }
 
-            var equipo = await _context.Equipo
-                .Include(e => e.Estadio)
-                .FirstOrDefaultAsync(m => m.IdEquipo == id);
-            if (equipo == null)
+            var estadio = await _context.Estadio
+                .FirstOrDefaultAsync(m => m.IdEstadio == id);
+            if (estadio == null)
             {
                 return NotFound();
             }
 
-            return View(equipo);
+            return View(estadio);
         }
 
-        // GET: Equipoes/Create
+        // GET: Estadio/Create
         public IActionResult Create()
         {
-            ViewData["IdEstadio"] = new SelectList(_context.Set<Estadio>(), "IdEstadio", "IdEstadio");
             return View();
         }
 
-        // POST: Equipoes/Create
+        // POST: Estadio/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEquipo,Nombre,Ciudad,Titulos,AceptaExtranjero,IdEstadio")] Equipo equipo)
+        public async Task<IActionResult> Create([Bind("IdEstadio,Nombre,Dirección,Ciudad,Capacidad")] Estadio estadio)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(equipo);
+                _context.Add(estadio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEstadio"] = new SelectList(_context.Set<Estadio>(), "IdEstadio", "IdEstadio", equipo.IdEstadio);
-            return View(equipo);
+            return View(estadio);
         }
 
-        // GET: Equipoes/Edit/5
+        // GET: Estadio/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +73,22 @@ namespace Taller_programacion.Controllers
                 return NotFound();
             }
 
-            var equipo = await _context.Equipo.FindAsync(id);
-            if (equipo == null)
+            var estadio = await _context.Estadio.FindAsync(id);
+            if (estadio == null)
             {
                 return NotFound();
             }
-            ViewData["IdEstadio"] = new SelectList(_context.Set<Estadio>(), "IdEstadio", "IdEstadio", equipo.IdEstadio);
-            return View(equipo);
+            return View(estadio);
         }
 
-        // POST: Equipoes/Edit/5
+        // POST: Estadio/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEquipo,Nombre,Ciudad,Titulos,AceptaExtranjero,IdEstadio")] Equipo equipo)
+        public async Task<IActionResult> Edit(int id, [Bind("IdEstadio,Nombre,Dirección,Ciudad,Capacidad")] Estadio estadio)
         {
-            if (id != equipo.IdEquipo)
+            if (id != estadio.IdEstadio)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace Taller_programacion.Controllers
             {
                 try
                 {
-                    _context.Update(equipo);
+                    _context.Update(estadio);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EquipoExists(equipo.IdEquipo))
+                    if (!EstadioExists(estadio.IdEstadio))
                     {
                         return NotFound();
                     }
@@ -118,11 +113,10 @@ namespace Taller_programacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEstadio"] = new SelectList(_context.Set<Estadio>(), "IdEstadio", "IdEstadio", equipo.IdEstadio);
-            return View(equipo);
+            return View(estadio);
         }
 
-        // GET: Equipoes/Delete/5
+        // GET: Estadio/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,35 +124,34 @@ namespace Taller_programacion.Controllers
                 return NotFound();
             }
 
-            var equipo = await _context.Equipo
-                .Include(e => e.Estadio)
-                .FirstOrDefaultAsync(m => m.IdEquipo == id);
-            if (equipo == null)
+            var estadio = await _context.Estadio
+                .FirstOrDefaultAsync(m => m.IdEstadio == id);
+            if (estadio == null)
             {
                 return NotFound();
             }
 
-            return View(equipo);
+            return View(estadio);
         }
 
-        // POST: Equipoes/Delete/5
+        // POST: Estadio/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var equipo = await _context.Equipo.FindAsync(id);
-            if (equipo != null)
+            var estadio = await _context.Estadio.FindAsync(id);
+            if (estadio != null)
             {
-                _context.Equipo.Remove(equipo);
+                _context.Estadio.Remove(estadio);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EquipoExists(int id)
+        private bool EstadioExists(int id)
         {
-            return _context.Equipo.Any(e => e.IdEquipo == id);
+            return _context.Estadio.Any(e => e.IdEstadio == id);
         }
     }
 }
